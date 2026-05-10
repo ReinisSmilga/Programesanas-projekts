@@ -7,7 +7,7 @@ def index():
     return render_template("index.html")
 
 @app.route("/pasakumi")
-def products():
+def events():
     return render_template("events.html")
 
 @app.route("/par-mums")
@@ -15,7 +15,7 @@ def about():
     return render_template("about.html")
 
 @app.route("/palidzibas")
-def palidziba():
+def help_page():
     return render_template("help.html")
 
 if __name__ == "__main__":
