@@ -3,6 +3,36 @@
 {% block title %}Palīdzība{% endblock %}
 
 {% block content %}
-<h1>Palīdzība</h1>
-<p>Šajā lapā var atrast informāciju, kā izmantot Jelgavas Kultūras Ceļvedi.</p>
+<h1>SAZINIES AR MUMS</h1>
+
+<p>Jelgavas Kultūras Ceļvedis atrodas Jelgavas centrā.</p>
+<p>Ja tev ir jautājumi par pasākumiem vai sadarbību, sazinies ar mums pa e-pastu, telefonu vai aizpildi formu.</p>
+
+<p><strong>Lielā iela 11, Jelgava, LV-3001</strong></p>
+
+<p><strong>Darba laiks:</strong></p>
+<p>Pirmdiena–piektdiena: 10:00–18:00</p>
+<p>Sestdiena, svētdiena un svētku dienas: 10:00–14:00</p>
+
+<p><strong>+371 20000000</strong></p>
+<p><strong>info@jelgavaskultura.lv</strong></p>
+
+<h2>Sazinies ar mums vai aizpildi šo formu:</h2>
+
+<form method="POST" onsubmit="this.reset(); document.getElementById('form-message').innerText='Iesniegts!'; return false;">
+    <label for="name">Vārds</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">E-pasts</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="message">Ziņojums</label><br>
+    <textarea id="message" name="message" required></textarea><br><br>
+
+    <p>Iesniedzot šo formu, tu piekrīti mūsu privātuma politikai.</p>
+
+    <button type="submit">Iesniegt</button>
+</form>
+
+<p id="form-message"></p>
 {% endblock %}
