@@ -89,6 +89,21 @@ footer p {
     padding: 22px;
     border-radius: 10px;
     box-shadow: 0 8px 10px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.event_text {
+    flex: 1;
+}
+
+.event_image img {
+    width: 220px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .event_card h2 {

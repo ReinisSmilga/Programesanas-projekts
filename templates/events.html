@@ -10,22 +10,32 @@
 <div class="events">
     {% for event in events %}
     <div class="event_card">
-        <h2>{{ event["title"] }}</h2>
-        <p><strong>Datums:</strong> {{ event["event_date"] }}</p>
-        <p><strong>Vieta:</strong> {{ event["location"] }}</p>
-        <p><strong>Kategorija:</strong> {{ event["category_name"] }} / {{ event["subcategory_name"] }}</p>
 
-        <a href="/pasakumi/{{ event['id'] }}" class="button">Uzzināt vairāk</a>
+        <div class="event_text">
+            <h2>{{ event["title"] }}</h2>
+            <p><strong>Datums:</strong> {{ event["event_date"] }}</p>
+            <p><strong>Vieta:</strong> {{ event["location"] }}</p>
+            <p><strong>Kategorija:</strong> {{ event["category_name"] }} / {{ event["subcategory_name"] }}</p>
 
-        <button class="setting_button" onclick="this.nextElementSibling.classList.toggle('show')">⚙</button>
+            <a href="/pasakumi/{{ event['id'] }}" class="button">Uzzināt vairāk</a>
 
-        <div class="setting">
-            <a href="/pasakumi/{{ event['id'] }}/edit" class="button">Labot</a>
+            <button class="setting_button" onclick="this.nextElementSibling.classList.toggle('show')">⚙</button>
 
-            <form action="/pasakumi/{{ event['id'] }}/delete" method="POST">
-                <button type="submit" class="button">Dzēst</button>
-            </form>
+            <div class="setting">
+                <a href="/pasakumi/{{ event['id'] }}/edit" class="button">Labot</a>
+
+                <form action="/pasakumi/{{ event['id'] }}/delete" method="POST">
+                    <button type="submit" class="button">Dzēst</button>
+                </form>
+            </div>
         </div>
+
+        {% if event["image_file"] %}
+        <div class="event_image">
+            <img src="{{ url_for('static', filename='images/' + event['image_file']) }}" alt="{{ event['title'] }}">
+        </div>
+        {% endif %}
+
     </div>
     {% endfor %}
 </div>
