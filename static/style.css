@@ -30,10 +30,7 @@ header {
     object-fit: cover;
     object-position: center 42%;
     filter:
-        drop-shadow(-0.5px -0.5px 0 white)
-        drop-shadow(0.5px -0.5px 0 white)
-        drop-shadow(-0.5px 0.5px 0 white)
-        drop-shadow(0.5px 0.5px 0 white);
+        drop-shadow(-1px -1px 0 white)
 }
 
 nav a {
@@ -83,7 +80,7 @@ footer p {
 
 .events {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50% 50%;
     gap: 20px;
 }
 
@@ -91,7 +88,7 @@ footer p {
     background-color: white;
     padding: 22px;
     border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 10px rgba(0,0,0,0.15);
 }
 
 .event_card h2 {
@@ -124,21 +121,23 @@ footer p {
 }
 
 .event_map {
-    width: 45%;
+    width: 55%;
+    padding-top: 32px;
+    padding-right: 20px;
 }
 
 .event_map iframe {
     width: 100%;
     height: 350px;
     border: 0;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .event_card {
     position: relative;
 }
 
-.dev_toggle {
+.setting_button {
     position: absolute;
     right: 12px;
     bottom: 12px;
@@ -189,7 +188,7 @@ footer p {
 }
 
 .help_form input,.help_form textarea {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border: 1px solid #ccc;
 }

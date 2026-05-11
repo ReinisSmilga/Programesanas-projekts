@@ -36,45 +36,39 @@ def help_page():
 def page_not_found(e):
     return render_template("404.html"), 404
 
-def get_events(where_clause="", params=()):
+def get_events(where="", params=()):
     conn = get_db_connection()
-
     events = conn.execute(f"""
-        SELECT 
-            events.id,
-            events.title,
-            events.event_date,
-            events.description,
-            locations.name AS location,
-            locations.address AS address,
-            organizers.name AS organizer,
-            categories.category_name,
-            categories.subcategory_name
+        SELECT events.*, locations.name AS location, locations.address AS address,
+               organizers.name AS organizer,
+               categories.category_name, categories.subcategory_name
         FROM events
         JOIN locations ON events.location_id = locations.id
         JOIN organizers ON events.organizer_id = organizers.id
         JOIN categories ON events.category_id = categories.id
-        {where_clause}
+        {where}
         ORDER BY events.event_date
     """, params).fetchall()
-
     conn.close()
     return events
+
+def get_form_data(conn):
+    return (
+        conn.execute("SELECT * FROM locations").fetchall(),
+        conn.execute("SELECT * FROM organizers").fetchall(),
+        conn.execute("SELECT * FROM categories").fetchall()
+    )
 
 @app.route("/pasakumi/<int:event_id>/edit", methods=["GET", "POST"])
 def edit_event(event_id):
     conn = get_db_connection()
-
     event = conn.execute("SELECT * FROM events WHERE id = ?", (event_id,)).fetchone()
-    locations = conn.execute("SELECT * FROM locations").fetchall()
-    organizers = conn.execute("SELECT * FROM organizers").fetchall()
-    categories = conn.execute("SELECT * FROM categories").fetchall()
-
+    locations, organizers, categories = get_form_data(conn)
     if request.method == "POST":
         conn.execute("""
             UPDATE events
-            SET title = ?, event_date = ?, location_id = ?, organizer_id = ?, category_id = ?, description = ?
-            WHERE id = ?
+            SET title=?, event_date=?, location_id=?, organizer_id=?, category_id=?, description=?
+            WHERE id=?
         """, (
             request.form["title"],
             request.form["event_date"],
@@ -84,35 +78,25 @@ def edit_event(event_id):
             request.form["description"],
             event_id
         ))
-
         conn.commit()
         conn.close()
-
         return redirect("/pasakumi")
-
     conn.close()
-
     return render_template("edit.html", event=event, locations=locations, organizers=organizers, categories=categories)
 
 
 @app.route("/pasakumi/<int:event_id>/delete", methods=["POST"])
 def delete_event(event_id):
     conn = get_db_connection()
-
     conn.execute("DELETE FROM events WHERE id = ?", (event_id,))
     conn.commit()
     conn.close()
-
     return redirect("/pasakumi")
 
 @app.route("/pasakumi/new/edit", methods=["GET", "POST"])
 def add_event():
     conn = get_db_connection()
-
-    locations = conn.execute("SELECT * FROM locations").fetchall()
-    organizers = conn.execute("SELECT * FROM organizers").fetchall()
-    categories = conn.execute("SELECT * FROM categories").fetchall()
-
+    locations, organizers, categories = get_form_data(conn)
     if request.method == "POST":
         conn.execute("""
             INSERT INTO events (title, event_date, location_id, organizer_id, category_id, description)
@@ -125,22 +109,11 @@ def add_event():
             request.form["category_id"],
             request.form["description"]
         ))
-
         conn.commit()
         conn.close()
         return redirect("/pasakumi")
-
-    event = {
-        "title": "",
-        "event_date": "",
-        "location_id": "",
-        "organizer_id": "",
-        "category_id": "",
-        "description": ""
-    }
-
+    event = {"title": "", "event_date": "", "location_id": "", "organizer_id": "", "category_id": "", "description": ""}
     conn.close()
-
     return render_template("edit.html", event=event, locations=locations, organizers=organizers, categories=categories)
 
 if __name__ == "__main__":
