@@ -100,8 +100,8 @@ footer p {
 }
 
 .event_image img {
-    width: 220px;
-    height: 140px;
+    width: 200px;
+    height: 130px;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -187,7 +187,7 @@ footer p {
 }
 
 .help_info {
-    width: 50%;
+    width: 40%;
     background-color: white;
     padding: 25px;
     border-radius: 10px;
@@ -284,6 +284,13 @@ footer p {
 
     .help_map iframe {
         height: 300px;
+    }
+
+    .form {
+        width: 80%;
+}
+    .event_image img {
+        display: none;
     }
 }
 
