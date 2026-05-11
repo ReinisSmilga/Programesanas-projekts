@@ -12,7 +12,7 @@ def get_db_connection():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return redirect("/pasakumi")
 
 @app.route("/pasakumi")
 def events():
