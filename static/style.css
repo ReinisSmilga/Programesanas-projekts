@@ -10,7 +10,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 header {
@@ -73,6 +73,7 @@ footer {
     color: white;
     text-align: center;
     padding: 18px;
+
 }
 
 footer p {
@@ -106,10 +107,6 @@ footer p {
     text-decoration: none;
     border-radius: 6px;
     margin-top: 10px;
-}
-
-.event_button:hover {
-    background-color: #7d1c1c;
 }
 
 .event_detail {
@@ -216,6 +213,13 @@ footer p {
     border-radius: 10px;
 }
 
+.about_text{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
 @media (max-width: 887px) {
     header {
         flex-direction: row;
@@ -267,6 +271,7 @@ footer p {
     .help_map iframe {
         height: 300px;
     }
+}
 
 @media (min-width: 887px) {
     .mobile{
