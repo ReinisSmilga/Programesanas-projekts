@@ -136,25 +136,64 @@ footer p {
     border-radius: 10px;
 }
 
+.event_card {
+    position: relative;
+}
+
+.dev_toggle {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background-color: #2f2f2f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.setting {
+    display: none;
+    position: absolute;
+    right: 12px;
+    bottom: 55px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.setting.show {
+    display: block;
+}
+
 @media (max-width: 887px) {
     header {
-        flex-direction: column;
-        gap: 15px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        padding: 0px;
+        padding: 10px;
     }
 
     nav a {
-        display: block;
-        padding: 3px;
+        display: inline-block;
+        padding: 6px;
+        margin: 4px;
     }
 
     .logo {
         display: none;
     }
 
+    .events {
+        display: flex;
+        flex-direction: column;
+    }
+
     .event_detail {
-    flex-direction: column;
+        flex-direction: column;
     } 
 
     .event_info, .event_map {

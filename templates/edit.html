@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Labot pasākumu{% endblock %}
+
+{% block content %}
+<h1>Labot pasākumu</h1>
+
+<form method="POST">
+    <label>Nosaukums</label><br>
+    <input type="text" name="title" value="{{ event['title'] }}" required><br><br>
+
+    <label>Datums</label><br>
+    <input type="text" name="event_date" value="{{ event['event_date'] }}" required><br><br>
+
+    <label>Vieta</label><br>
+    <select name="location_id">
+        {% for location in locations %}
+            <option value="{{ location['id'] }}" {% if location['id'] == event['location_id'] %}selected{% endif %}>
+                {{ location['name'] }}
+            </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Organizators</label><br>
+    <select name="organizer_id">
+        {% for organizer in organizers %}
+            <option value="{{ organizer['id'] }}" {% if organizer['id'] == event['organizer_id'] %}selected{% endif %}>
+                {{ organizer['name'] }}
+            </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Kategorija</label><br>
+    <select name="category_id">
+        {% for category in categories %}
+            <option value="{{ category['id'] }}" {% if category['id'] == event['category_id'] %}selected{% endif %}>
+                {{ category['category_name'] }} / {{ category['subcategory_name'] }}
+            </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Apraksts</label><br>
+    <textarea name="description" required>{{ event['description'] }}</textarea><br><br>
+
+    <button type="submit" class="button">Saglabāt</button>
+</form>
+{% endblock %}

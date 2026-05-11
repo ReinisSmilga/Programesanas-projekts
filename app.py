@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 import sqlite3
 from pathlib import Path
 
@@ -60,6 +60,50 @@ def get_events(where_clause="", params=()):
 
     conn.close()
     return events
+
+@app.route("/pasakumi/<int:event_id>/edit", methods=["GET", "POST"])
+def edit_event(event_id):
+    conn = get_db_connection()
+
+    event = conn.execute("SELECT * FROM events WHERE id = ?", (event_id,)).fetchone()
+    locations = conn.execute("SELECT * FROM locations").fetchall()
+    organizers = conn.execute("SELECT * FROM organizers").fetchall()
+    categories = conn.execute("SELECT * FROM categories").fetchall()
+
+    if request.method == "POST":
+        conn.execute("""
+            UPDATE events
+            SET title = ?, event_date = ?, location_id = ?, organizer_id = ?, category_id = ?, description = ?
+            WHERE id = ?
+        """, (
+            request.form["title"],
+            request.form["event_date"],
+            request.form["location_id"],
+            request.form["organizer_id"],
+            request.form["category_id"],
+            request.form["description"],
+            event_id
+        ))
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/pasakumi")
+
+    conn.close()
+
+    return render_template("edit.html", event=event, locations=locations, organizers=organizers, categories=categories)
+
+
+@app.route("/pasakumi/<int:event_id>/delete", methods=["POST"])
+def delete_event(event_id):
+    conn = get_db_connection()
+
+    conn.execute("DELETE FROM events WHERE id = ?", (event_id,))
+    conn.commit()
+    conn.close()
+
+    return redirect("/pasakumi")
 
 if __name__ == "__main__":
     app.run(debug=True)

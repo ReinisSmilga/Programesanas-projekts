@@ -12,7 +12,18 @@
         <p><strong>Datums:</strong> {{ event["event_date"] }}</p>
         <p><strong>Vieta:</strong> {{ event["location"] }}</p>
         <p><strong>Kategorija:</strong> {{ event["category_name"] }} / {{ event["subcategory_name"] }}</p>
+
         <a href="/pasakumi/{{ event['id'] }}" class="button">Uzzināt vairāk</a>
+
+        <button class="dev_toggle" onclick="this.nextElementSibling.classList.toggle('show')">⚙</button>
+
+        <div class="setting">
+            <a href="/pasakumi/{{ event['id'] }}/edit" class="button">Labot</a>
+
+            <form action="/pasakumi/{{ event['id'] }}/delete" method="POST">
+                <button type="submit" class="button">Dzēst</button>
+            </form>
+        </div>
     </div>
     {% endfor %}
 </div>
