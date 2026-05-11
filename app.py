@@ -105,5 +105,43 @@ def delete_event(event_id):
 
     return redirect("/pasakumi")
 
+@app.route("/pasakumi/new/edit", methods=["GET", "POST"])
+def add_event():
+    conn = get_db_connection()
+
+    locations = conn.execute("SELECT * FROM locations").fetchall()
+    organizers = conn.execute("SELECT * FROM organizers").fetchall()
+    categories = conn.execute("SELECT * FROM categories").fetchall()
+
+    if request.method == "POST":
+        conn.execute("""
+            INSERT INTO events (title, event_date, location_id, organizer_id, category_id, description)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            request.form["title"],
+            request.form["event_date"],
+            request.form["location_id"],
+            request.form["organizer_id"],
+            request.form["category_id"],
+            request.form["description"]
+        ))
+
+        conn.commit()
+        conn.close()
+        return redirect("/pasakumi")
+
+    event = {
+        "title": "",
+        "event_date": "",
+        "location_id": "",
+        "organizer_id": "",
+        "category_id": "",
+        "description": ""
+    }
+
+    conn.close()
+
+    return render_template("edit.html", event=event, locations=locations, organizers=organizers, categories=categories)
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -25,20 +25,20 @@
 
         <form method="POST" onsubmit="this.reset(); document.getElementById('form-message').innerText='Iesniegts!'; return false;">
             <label for="name">Vārds</label><br>
-            <input type="text" id="name" name="name" required><br><br>
+            <input type="text" required><br><br>
 
             <label for="email">E-pasts</label><br>
-            <input type="email" id="email" name="email" required><br><br>
+            <input type="email" required><br><br>
 
             <label for="message">Ziņojums</label><br>
-            <textarea id="message" name="message" required></textarea><br><br>
+            <textarea required></textarea><br><br>
 
             <p>Iesniedzot šo formu, tu piekrīti mūsu privātuma politikai.</p>
 
             <button type="submit" class="button">Iesniegt</button>
         </form>
 
-        <p id="form-message"></p>
+        <p></p>
     </div>
 </div>
 
