@@ -16,28 +16,13 @@ def index():
 
 @app.route("/pasakumi")
 def events():
-    conn = get_db_connection()
-
-    events = conn.execute("""
-        SELECT 
-            events.id,
-            events.title,
-            events.event_date,
-            events.description,
-            locations.name AS location,
-            organizers.name AS organizer,
-            categories.category_name,
-            categories.subcategory_name
-        FROM events
-        JOIN locations ON events.location_id = locations.id
-        JOIN organizers ON events.organizer_id = organizers.id
-        JOIN categories ON events.category_id = categories.id
-        ORDER BY events.event_date
-    """).fetchall()
-
-    conn.close()
-
+    events = get_events()
     return render_template("events.html", events=events)
+
+@app.route("/pasakumi/<int:event_id>")
+def event_detail(event_id):
+    event = get_events("WHERE events.id = ?", (event_id,))[0]
+    return render_template("event_bio.html", event=event)
 
 @app.route("/par-mums")
 def about():
@@ -50,6 +35,31 @@ def help_page():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
+
+def get_events(where_clause="", params=()):
+    conn = get_db_connection()
+
+    events = conn.execute(f"""
+        SELECT 
+            events.id,
+            events.title,
+            events.event_date,
+            events.description,
+            locations.name AS location,
+            locations.address AS address,
+            organizers.name AS organizer,
+            categories.category_name,
+            categories.subcategory_name
+        FROM events
+        JOIN locations ON events.location_id = locations.id
+        JOIN organizers ON events.organizer_id = organizers.id
+        JOIN categories ON events.category_id = categories.id
+        {where_clause}
+        ORDER BY events.event_date
+    """, params).fetchall()
+
+    conn.close()
+    return events
 
 if __name__ == "__main__":
     app.run(debug=True)

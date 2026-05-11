@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ event["title"] }}{% endblock %}
+
+{% block content %}
+<div class="event_detail">
+
+    <div class="event_info">
+        <h1>{{ event["title"] }}</h1>
+
+        <p><strong>Datums:</strong> {{ event["event_date"] }}</p>
+        <p><strong>Vieta:</strong> {{ event["location"] }}</p>
+        <p><strong>Adrese:</strong> {{ event["address"] }}</p>
+        <p><strong>Organizators:</strong> {{ event["organizer"] }}</p>
+        <p><strong>Kategorija:</strong> {{ event["category_name"] }} / {{ event["subcategory_name"] }}</p>
+
+        <p>{{ event["description"] }}</p>
+
+        <br><br>
+        <a href="/pasakumi" class="button pc">Atpakaļ uz pasākumiem</a>
+    </div>
+
+    <div class="event_map">
+        <iframe
+            src="https://www.google.com/maps?q={{ event['address'] }}&output=embed"
+            loading="lazy">
+        </iframe>
+    </div>
+
+    <div>
+        <a href="/pasakumi" class="button mobile">Atpakaļ uz pasākumiem</a>
+    </div>
+
+</div>
+{% endblock %}
