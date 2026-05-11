@@ -79,6 +79,19 @@ footer p {
     font-size: 15px;
 }
 
+.event {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.event h2 {
+    color: #a72525;
+    margin-top: 0;
+}
+
 @media (max-width: 887px) {
     header {
         flex-direction: column;

@@ -5,10 +5,15 @@
 {% block content %}
 <h1>Pasākumi Jelgavā</h1>
 
-<div">
-    <div">
-        <h2>Koncerts Pasta salā</h2>
-        <p>Mūzikas pasākums brīvā dabā Jelgavā.</p>
-    </div>
+{% for event in events %}
+<div class="event">
+    <h2>{{ event["title"] }}</h2>
+    <p><strong>Datums:</strong> {{ event["event_date"] }}</p>
+    <p><strong>Vieta:</strong> {{ event["location"] }}</p>
+    <p><strong>Organizators:</strong> {{ event["organizer"] }}</p>
+    <p><strong>Kategorija:</strong> {{ event["category_name"] }} / {{ event["subcategory_name"] }}</p>
+    <p>{{ event["description"] }}</p>
 </div>
+{% endfor %}
+
 {% endblock %}
