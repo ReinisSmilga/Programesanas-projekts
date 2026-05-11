@@ -179,7 +179,7 @@ footer p {
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
-.help_form {
+.form {
     width: 50%;
     background-color: white;
     padding: 25px;
@@ -187,13 +187,13 @@ footer p {
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
-.help_form input,.help_form textarea {
+.form input,.form textarea {
     width: 95%;
     padding: 10px;
     border: 1px solid #ccc;
 }
 
-.help_form textarea {
+.form textarea {
     height: 120px;
 }
 
